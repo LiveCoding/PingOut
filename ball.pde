@@ -16,8 +16,8 @@ class ball extends objPhys {
     if(up()   >= height) { y=height-h/2; vy=-abs(vy); }
     if(down() <=      0) { y=h/2;        vy= abs(vy); }
     
-    if(x >= width) { gameState = 2;  vx=-abs(vx); }
-    if(x <= 0)     { gameState = 3; vx= abs(vx); }    
+    if(x >= width) { gameState = 2; vx=0; vy=0; }
+    if(x <= 0)     { gameState = 3; vx=0; vy=0; }    
     
     //COLLISION
     //Palettes

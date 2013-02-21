@@ -5,7 +5,8 @@ palette palA, palB;
 ArrayList myBalls;
 couleur[] colT;
 int gameState; // 0: playing, 1: pause, 2: playA Score, 3: playB Score, 4: playA Win, 5: playB Win, 6: exit
-int scoreA, scoreB;
+int scoreA, scoreB, scoreVictory;
+PFont myFont;
 
 void setup() {
   
@@ -17,6 +18,9 @@ void setup() {
   noCursor();
   strokeCap(SQUARE);
   rectMode(CENTER);
+  
+  myFont = createFont("Georgia", 32);
+  textFont(myFont);
  
   //Initialisations
   colT = new couleur[4];
@@ -37,7 +41,7 @@ void setup() {
   loadBriques();
   
   gameState = 0;
-  scoreA = 0; scoreB = 0;
+  scoreA = 0; scoreB = 0; scoreVictory = 2;
     
 }
 
@@ -65,11 +69,14 @@ void draw() {
     if(gameState==1) scoreA++;
     if(gameState==2) scoreB++;
     
-      myBalls = new ArrayList<ball>();
-      myBalls.add(new ball(1,width/2 -270, height/2) );
-      myBalls.add(new ball(2,width/2 +270, height/2) );
-      loadBriques();
-      gameState = 0;
+    
+    
+
+      
+      
+    if(scoreA==scoreVictory) { gameState = 4; }
+    if(scoreB==scoreVictory) { gameState = 5; }
+
   }
   
   //DRAW
@@ -86,10 +93,15 @@ void draw() {
   stroke(255);
   line(0, 1, width, 1); line(0, height-1, width, height-1);
   noStroke();
-  //textSize(60);
-  //fill(255);
-  //text(scoreA, 100, 60);
-  //text(scoreA, width - 200, 60);      
+  
+  fill(255);
+  text(scoreA, 100, 60);
+  text(scoreB, width - 200, 60);      
+  
+  
+    if(gameState == 4) { text ("Player 1 a perdu, trou du cul", 100, height/2-50); }
+    if(gameState == 5) { text ("Player 2 l'a dans l'os, bolosse", 100, height/2-50); }
+    
 }
 
 void keyPressed() {
@@ -122,6 +134,17 @@ void loadBriques() {
     for (int i = 0 ; i < lines.length; i++) {
       int[] nums = int(split(lines[i], ' '));
       myBriques.add(new brique(nums[0],nums[1],nums[2],nums[3]));
-    }  
+    }   
+}
+
+void loadBalls() {
+    myBalls.clear();
+    myBalls.add(new ball(1,width/2 -270, height/2) );
+    myBalls.add(new ball(2,width/2 +270, height/2) );
+}
+
+void loadGame() {
+      loadBriques();
+      gameState = 0; 
   
 }
