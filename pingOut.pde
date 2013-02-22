@@ -65,20 +65,15 @@ void draw() {
   palB.updatePos();
   
     //Game
-  if(gameState==1 || gameState==2) {
+ /* if(gameState==1 || gameState==2) {
     if(gameState==1) scoreA++;
-    if(gameState==2) scoreB++;
-    
-    
-    
-
-      
+    if(gameState==2) scoreB++;   
       
     if(scoreA==scoreVictory) { gameState = 4; }
     if(scoreB==scoreVictory) { gameState = 5; }
 
   }
-  
+  */
   //DRAW
     //Briques
   for(int i=0;i<myBriques.size();i++)
@@ -95,13 +90,13 @@ void draw() {
   noStroke();
   
   fill(255);
-  text(scoreA, 100, 60);
-  text(scoreB, width - 200, 60);      
+ // text(scoreA, 100, 60);
+ // text(scoreB, width - 200, 60);      
   
-  
+  /*
     if(gameState == 4) { text ("Player 1 a perdu, trou du cul", 100, height/2-50); }
     if(gameState == 5) { text ("Player 2 l'a dans l'os, bolosse", 100, height/2-50); }
-    
+    */
 }
 
 void keyPressed() {
@@ -115,6 +110,11 @@ void keyPressed() {
     else if (keyCode == DOWN)  { palA.pressDown = true; }
     else if (keyCode == LEFT)  { palB.pressDown = true; } 
   }
+  
+  if (key == 'z') { palA.pressUp   = true; }
+  if (key == 'q') { palB.pressUp   = true; }
+  if (key == 's') { palA.pressDown = true; }
+  if (key == 'd') { palB.pressDown = true; } 
 }
 
 void keyReleased() {
@@ -125,6 +125,11 @@ void keyReleased() {
     else if (keyCode == DOWN)  { palA.pressDown = false; }
     else if (keyCode == LEFT)  { palB.pressDown = false; } 
   }
+  if (key == 'z') { palA.pressUp   = false; }
+  if (key == 'q') { palB.pressUp   = false; }
+  if (key == 's') { palA.pressDown = false; }
+  if (key == 'd') { palB.pressDown = false; } 
+  
 }
 
 

@@ -22,8 +22,8 @@ class palette extends objPhys {
    }
   
    //Speed
-   if(pressUp)   vy--;
-   if(pressDown) vy++;
+   if(pressUp)   { if(vy==0) vy=-3; vy--; }
+   if(pressDown) { if(vy==0) vy= 3; vy++; }
     
    //Position
    y+=vy;
