@@ -54,10 +54,10 @@ class objPhys {
     if(way==0) { return false; }
       
     switch(way) { 
-        case 1: vy=-abs(vy); break;
-        case 2: vy= abs(vy); break;
-        case 3: vx= abs(vx); break;
-        case 4: vx=-abs(vx); break;
+        case 1: vy=-abs(vy); vx+=_obj.vx/2; break;
+        case 2: vy= abs(vy); vx+=_obj.vx/2; break;
+        case 3: vx= abs(vx); vy+=_obj.vy/2; break;
+        case 4: vx=-abs(vx); vy+=_obj.vy/2; break;
       }
       
     return true;
