@@ -8,10 +8,13 @@ int gameState; // 0: playing, 1: pause, 2: playA Score, 3: playB Score, 4: playA
 int scoreA, scoreB, scoreVictory;
 PFont myFont;
 
+int h=400;
+int w=800;
+
 void setup() {
   
   //Set up
-  size(displayWidth, displayHeight, P2D);
+  size(w, h, P2D);
   frameRate(30);
   strokeWeight(3);
   noStroke();
