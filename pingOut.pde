@@ -9,10 +9,15 @@ int scoreA, scoreB, scoreVictory;
 PFont myFont;
 int tick;
 
+int h=400;
+int w=800;
+
 void setup() {
   
   //Set up
+
   size(displayWidth, displayHeight);
+
   frameRate(30);
   strokeWeight(3);
   noStroke();
