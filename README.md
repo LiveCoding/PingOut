@@ -2,13 +2,11 @@ PingOut
 =======
 
 Mix between Ping and Breakout. Done during our first sessions of live coding.
-
+Second version
 
 CONTROLS :
-Up Down move one palette
-Right Left move the other one
-L load the briques (you shouldn't need that here)
-
+w x  move one palette
+b n move the other one
 
 PingOut Edit:
 Let you draw your bricks with the mouse to after load them in the game.
