@@ -9,9 +9,7 @@ int scoreA, scoreB, scoreVictory;
 PFont myFont;
 
 int h=400;
-int w=700;
-
-
+int w=800;
 
 void setup() {
   
