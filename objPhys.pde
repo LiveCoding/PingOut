@@ -5,6 +5,7 @@ class objPhys {
   float vx,vy;
   float w,h;
   int type; //0 void, 1 red, 2 blue, 3 both
+  couleur col;
  
   float up()    {return y+h/2;}
   float down()  {return y-h/2;}
@@ -14,7 +15,7 @@ class objPhys {
   //int toUp() (int y) {  }
   
   void drawMe() {
-    fill(colT[type].r, colT[type].g, colT[type].b, colT[type].a);
+    fill(col.r, col.g, col.b, col.a);
     rect(x, y, w, h, 3);
   }
   
@@ -33,7 +34,7 @@ class objPhys {
     
     switch(count) { //3 versions
       case 0: break;
-      case 1: //1) We are 1 dot inside
+      case 1: //1) We are 1 dot insizde
         break;
       case 2: //2) We are 2 dots inside
         if(Ain && Bin) way = 1;

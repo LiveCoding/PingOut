@@ -8,8 +8,8 @@ class palette extends objPhys {
     type = _type;
     w=20;  h=80;
     y=height/2;
-    if(type==1) x = 50;
-    else        x = width - 50;
+    if(type==1) { col = new couleur(255,0,0, 200); x = 50; }
+    else        { col = new couleur(0,0,255, 200); x = width - 50; }
   }
   
 

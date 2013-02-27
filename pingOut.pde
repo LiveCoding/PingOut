@@ -1,34 +1,27 @@
 
-ArrayList myBriques;
+ArrayList<brique> myBriques;
 boolean randCol;
 palette palA, palB;
-ArrayList myBalls;
+ArrayList<ball> myBalls;
 couleur[] colT;
 int gameState; // 0: playing, 1: pause, 2: playA Score, 3: playB Score, 4: playA Win, 5: playB Win, 6: exit
 int scoreA, scoreB, scoreVictory;
 PFont myFont;
+int tick;
 
 void setup() {
   
   //Set up
-  size(displayWidth, displayHeight, P2D);
+  size(displayWidth, displayHeight);
   frameRate(30);
   strokeWeight(3);
   noStroke();
   noCursor();
   strokeCap(SQUARE);
   rectMode(CENTER);
-  
+  tick = 0;
   myFont = createFont("Georgia", 32);
   textFont(myFont);
- 
-  //Initialisations
-  colT = new couleur[4];
-  colT[0] = new couleur(0,0,0, 200);
-  colT[1] = new couleur(255,0,0, 200);
-  colT[2] = new couleur(0,0,255, 200);
-  colT[3] = new couleur();
-  colT[3].addition(colT[1],colT[2]);
   
   palA = new palette(1);
   palB = new palette(2);
@@ -57,17 +50,38 @@ void draw() {
   //UPDATE
     //Balls
   if(gameState==0) {
-  for(int i=0;i<myBalls.size();i++)
-    ((ball)myBalls.get(i)).updatePos();
+    boolean oneMoreBlue = true, oneMoreRed = true;
+    for(int i=0;i<myBalls.size();i++) {
+      ((ball)myBalls.get(i)).updatePos();
+      if(myBalls.get(i).type == 1 && myBalls.get(i).x < width/2)
+        oneMoreRed = false;
+      if(myBalls.get(i).type == 2 && myBalls.get(i).x > width/2)
+        oneMoreBlue = false;
+    }
+    
+    if(oneMoreRed)
+      myBalls.add(new ball(1,width/2 -270, height/2) );
+    if(oneMoreBlue)
+      myBalls.add(new ball(2,width/2 +270, height/2) );
+    
+  
+  
   }
+  
+
+  
     //Palettes
   palA.updatePos();
   palB.updatePos();
   
+  
+  /*
     //Game
- /* if(gameState==1 || gameState==2) {
+  if(gameState==1 || gameState==2) {
     if(gameState==1) scoreA++;
-    if(gameState==2) scoreB++;   
+    if(gameState==2) scoreB++;
+    
+    loadGame();
       
     if(scoreA==scoreVictory) { gameState = 4; }
     if(scoreB==scoreVictory) { gameState = 5; }
@@ -75,23 +89,36 @@ void draw() {
   }
   */
   //DRAW
+    if(true) {
+   tick++;
+    if(tick==10) {
+       tick =0;
+    for(int i=0;i<myBriques.size();i++)
+       myBriques.get(i).randColor();
+     
+    } 
+  }
+  
     //Briques
   for(int i=0;i<myBriques.size();i++)
-     ((brique)myBriques.get(i)).drawMe();
+    if(myBriques.get(i).type != 0)
+      myBriques.get(i).drawMe();
     //Balls
   for(int i=0;i<myBalls.size();i++)
      ((ball)myBalls.get(i)).drawMe();
     //Palettes
   palA.drawMe();
   palB.drawMe();
+  
+  
     //Cadre
   stroke(255);
   line(0, 1, width, 1); line(0, height-1, width, height-1);
   noStroke();
   
   fill(255);
- // text(scoreA, 100, 60);
- // text(scoreB, width - 200, 60);      
+  text(scoreA, 100, 60);
+  text(scoreB, width - 200, 60);      
   
   /*
     if(gameState == 4) { text ("Player 1 a perdu, trou du cul", 100, height/2-50); }
@@ -111,6 +138,7 @@ void keyPressed() {
     else if (keyCode == LEFT)  { palB.pressDown = true; } 
   }
   
+  if (key == ' ') { loadGame(); }
   if (key == 'z') { palA.pressUp   = true; }
   if (key == 'q') { palB.pressUp   = true; }
   if (key == 's') { palA.pressDown = true; }
@@ -140,6 +168,15 @@ void loadBriques() {
       int[] nums = int(split(lines[i], ' '));
       myBriques.add(new brique(nums[0],nums[1],nums[2],nums[3]));
     }   
+}
+
+void loadMyBriques() {
+    myBriques.clear();
+    int wB = 60, hB = 25, eB = 5;
+    for(int i = width/4; i < 3*width/4; i+= hB+2*eB)
+    for(int j = 0+wB/2; j < height; j+= wB+eB)
+      myBriques.add(new brique(i, j, hB, wB));
+  
 }
 
 void loadBalls() {

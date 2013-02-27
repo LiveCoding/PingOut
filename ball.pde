@@ -6,7 +6,13 @@ class ball extends objPhys {
     type = _type;
     w=15;     h=15;
     x = _x;  y = _y;
-    vx=vy=5;
+    float a = random(-1,1); a /= abs(a);
+    vx=int(a)*5;
+    a = random(-1,1); a /= abs(a);
+    vy=int(a)*5;
+    
+    if(type==1) { col = new couleur(255,0,0, 200); x = 50; }
+    else        { col = new couleur(0,0,255, 200); x = width - 50; }
   }
   
   void updatePos() {
@@ -25,15 +31,17 @@ class ball extends objPhys {
     reboundWith(palB);    
     
     //Briques
-    for(int i=0;i<myBriques.size();i++) {
+   
+   for(int i=0;i<myBriques.size();i++) {
       brique tBrique = (brique)myBriques.get(i);
-      if (tBrique.type==3 || tBrique.type==type) {
-        if (reboundWith(tBrique)) {
-          tBrique.updateType(type);
-        }
-      }
+      //if (tBrique.type==3 || tBrique.type==type)
+      //  if (reboundWith(tBrique))
+      //    tBrique.updateType(type);
+      if (tBrique.type!=0)
+        if (reboundWith(tBrique))
+          tBrique.type = 0;
     }
-    
+      
     //SPHERICAL COLLISIONS
 
     for(int i=0;i<myBalls.size();i++) {
