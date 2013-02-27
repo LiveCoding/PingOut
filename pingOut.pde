@@ -22,6 +22,8 @@ float speedPal2=0;
 
 boolean useFile=true;
 
+int[] score=new int[2];
+
 void loadBriques() {
   String lines[] = loadStrings("data.txt"); 
   nbBricks=lines.length;
@@ -52,6 +54,9 @@ void setup() {
   vx[1] = 2;
   vy[1] =int(random( -8, 8 ));
 
+  score[0]=0;
+  score[1]=0;
+  
 
   if (!useFile) {
     nbBricks=28;
@@ -78,6 +83,19 @@ void draw() {
   stroke(255);
   strokeWeight(3);
 
+  fill(255);
+    textSize( 48 );
+  pushMatrix();
+    translate(10,20);
+    rotate(PI/2);
+    text("Score: "+score[0],0,0);
+popMatrix();
+  pushMatrix();
+    translate(W-50,20);
+    rotate(PI/2);
+    text("Score "+score[1],0,0);
+popMatrix();
+  
   // update postion of the ball 
   if (!paused) update();
 
@@ -160,12 +178,14 @@ void update() {
     py[0] = height/2;
     vx[0] = -2;
     vy[0] = int(random( -8, 8 ));
+    score[0]-=100;
   }
   if ( px[1] + vx[1] >W-10 ) {
     px[1] = width/2+width/4;
     py[1] = height/2;
     vx[1] = 2;
     vy[1] = int(random( -8, 8 ));
+    score[1]-=100;
     //paused = true;
   }
 
@@ -180,6 +200,7 @@ void update() {
         if ( px[player] + vx[player]  >  bricksCoord[i][0]-10 && px[player] + vx[player]  <  bricksCoord[i][0]+bricksCoord[i][2]+10 &&
           py[player] + vy[player]  >  bricksCoord[i][1]-10 && py[player] + vy[player]  <  10+bricksCoord[i][1]+bricksCoord[i][3]) {
           println(bricks[i]+" "+player);
+          score[player]+=50;
           bricks[i] = bricks[i]-(bricks[i]& (player+1));
           println(bricks[i]);
           // change the velocity in y direction if the block has been hit 

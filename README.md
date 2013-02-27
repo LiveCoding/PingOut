@@ -6,6 +6,7 @@ Second version
 
 CONTROLS :
 w x  move one palette
+
 b n move the other one
 
 PingOut Edit:
