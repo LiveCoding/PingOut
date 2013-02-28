@@ -50,18 +50,48 @@ class objPhys {
   }
   
   boolean reboundWith(objPhys _obj) {
-    int way = collideWith(_obj);
-    
-    if(way==0) { return false; }
-      
-    switch(way) { 
-        case 1: vy=-abs(vy); vx+=_obj.vx/2; break;
-        case 2: vy= abs(vy); vx+=_obj.vx/2; break;
-        case 3: vx= abs(vx); vy+=_obj.vy/2; break;
-        case 4: vx=-abs(vx); vy+=_obj.vy/2; break;
+ 
+    if (vx<0) {
+      if (vy<0) {
+
+        if ((left()+vx > _obj.left()) & (left()+vx < _obj.right()) & (down()+vy < _obj.up()) & (down()+vy > _obj.down())) {
+          if (left()>=_obj.right()) vx=-vx;
+          if (down()<=_obj.up()) vy=-vy;
+          return true;
+        }
       }
-      
-    return true;
+      else //vy>0
+      {
+        if ((left()+vx > _obj.left()) & (left()+vx < _obj.right()) & (up()+vy < _obj.up()) & (up()+vy > _obj.down())) {
+          if (left()>=_obj.right()) vx=-vx;
+          if (up()<=_obj.down()) vy=-vy;
+          return true;
+        }
+      }
+    }// vx>0
+    else 
+    {
+      if (vy<0) {
+
+        if ((right()+vx > _obj.left()) & (right()+vx < _obj.right()) & (down()+vy < _obj.up()) & (down()+vy > _obj.down())) {
+          if (right()<=_obj.left()) vx=-vx;
+          if (down()>=_obj.up()) vy=-vy;
+          return true;
+        }
+      }
+      else //vy>0
+      {
+        
+        if ((right()+vx > _obj.left()) & (right()+vx < _obj.right()) & (up()+vy < _obj.up()) & (up()+vy > _obj.down())) {
+          if (right()<=_obj.left()) vx=-vx;
+          if (up()<=_obj.down()) vy=-vy;
+          return true;
+        }
+      }
+    }
+          return false;
+
   }
+
   
 }

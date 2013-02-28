@@ -3,12 +3,11 @@ ArrayList<brique> myBriques;
 boolean randCol;
 palette palA, palB;
 ArrayList<ball> myBalls;
-couleur[] colT;
 int gameState; // 0: playing, 1: pause, 2: playA Score, 3: playB Score, 4: playA Win, 5: playB Win, 6: exit
 int scoreA, scoreB, scoreVictory;
 PFont myFont, myFontText;
 int tick;
-
+ 
 void setup() {
   
   //Set up
@@ -35,7 +34,7 @@ void setup() {
   loadBriques();
   
   gameState = 0;
-  scoreA = 0; scoreB = 0; scoreVictory = 1;
+  scoreA = 0; scoreB = 0; scoreVictory = 50;
     
 }
 
@@ -76,12 +75,13 @@ void draw() {
   
     //Game
   if(gameState==1 || gameState==2) {
-    if(gameState==1) scoreA++;
-    if(gameState==2) scoreB++;
+    println(gameState);
+    if(gameState==1) scoreA+=5;
+    if(gameState==2) scoreB+=5;
     
       
-    if(scoreA==scoreVictory) { gameState = 4; }
-    else if(scoreB==scoreVictory) { gameState = 5; }
+    if(scoreA>=scoreVictory) { gameState = 4; }
+    else if(scoreB>=scoreVictory) { gameState = 5; }
     else loadGame();
   }
   
@@ -116,7 +116,7 @@ void draw() {
  
   rotate(-PI/2);
   fill(255);
-  text(scoreA, -100, 100);
+  text(scoreA, -160, 100);
   text(scoreB, -height+30, width-100);      
   
   
@@ -139,7 +139,8 @@ void keyPressed() {
     else if (keyCode == LEFT)  { palB.pressDown = true; } 
   }
   
-  if (key == ' ') { loadGame(); }
+  if (key == ' ') { 
+      scoreA = scoreB = 0; loadGame(); }
   if (key == 'z') { palA.pressUp   = true; }
   if (key == 'q') { palB.pressUp   = true; }
   if (key == 's') { palA.pressDown = true; }
@@ -190,6 +191,5 @@ void loadGame() {
       loadBriques();
       loadBalls();
       gameState = 0; 
-      scoreA = scoreB = 0;
   
 }
